@@ -25,7 +25,7 @@ SECRET_KEY = '3^%_!s$pim(i$yp*h5d$)*icp#j$2udk3v0w&$!1=yp*ffvd%s'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['fathomless-refuge-11007.herokuapp.com','localhost','127.0.0.1']
+ALLOWED_HOSTS = ['nameless-springs-99044.herokuapp.com','localhost','127.0.0.1']
 
 
 # Application definition
