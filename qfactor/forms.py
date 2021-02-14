@@ -15,5 +15,4 @@ class FormMain(forms.Form):
     radius = forms.CharField(label="Radius (in nm):",initial="20",widget=forms.TextInput(attrs={'type':'number'}))
     height = forms.CharField(label="Height (in nm):",initial="200",widget=forms.TextInput(attrs={'type':'number'}))
     distance = forms.CharField(label="Distance (in nm):",initial="60",widget=forms.TextInput(attrs={'type':'number'}))
-    material = forms.CharField()
     number_of_layers = forms.CharField(widget=forms.TextInput(attrs={'type':'number'}))

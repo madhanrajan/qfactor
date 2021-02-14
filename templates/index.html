@@ -29,6 +29,13 @@
       </nav>
       <br>
     <div id="app1" class="container">
+
+        
+        <label >To add an element, please click this link:</label> &nbsp;
+        <a href={% url 'admin:index' %} class="btn btn-primary">Add element</a>
+
+        <p></p>
+
         <form id="main">
             {{form.as_p}}
         </form>
@@ -44,16 +51,26 @@
                 <label>
                   Layer [[i]]: 
                 </label>
-                <input type="text" placeholder="Material" name="layer">
+                &nbsp;
+                
+                <select name="material" id="">
+                  {% for el in elements %}
+                    <option value="{{el}}">{{el}}</option>
+                  {% endfor %}
+
+                </select>
+
                <input type="number" placeholder="Thickness (in nm)" name="thickness">
                 <br>
                </p>
               </form>
               <button v-on:click="finalsubmit" class="btn btn-primary">Execute</button>
 
+              <p id="data_received"></p>
+              
           </div>
           <br>
-          
+          <blog-post title="das"></blog-post>
           
 
    
@@ -68,25 +85,43 @@
         data: function() {
           return{
             renderthis: false,
-            countlist: 0
+            countlist: 0,
           }
         },
 
         methods: {
           retrieve: function(event){
             j = $("#main").serializeArray();
-            value = j[9]["value"];
+            value = j[8]["value"];
+
             this.renderthis = true;
             this.countlist = value;
+            console.log(j);
           },
           finalsubmit: function(event){
             k = $("#secondform").serializeArray();
-            console.log(k);
+            j = $("#main").serializeArray();
+            data = {"essentials": j,"layers":k};
+            console.log(data)
+            
+            $.ajax({
+              type: "POST",
+              url: "{% url 'parse_data' %}",
+              data: JSON.stringify(data),
+              success: (data) => {
+                $("#data_received").text(JSON.stringify(data));
+              },
+              dataType: "json",
+              contentType: "application/json"
+
+            })
           }
 
         }
 
       })
+
+
 
     </script>
 </body>

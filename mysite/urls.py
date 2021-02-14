@@ -14,11 +14,18 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from qfactor.views import IndexView, Page2View
+from django.urls import path, include
+from qfactor.views import IndexView, Page2View, parse_data
+from rest_framework import routers
+
+
+router = routers.DefaultRouter()
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', IndexView.as_view(),name='index'),
-    path('page2/', Page2View.as_view(), name='page2')
+    path('page2/', Page2View.as_view(), name='page2'),
+    path('router/', include(router.urls)),
+    path('parsedata',parse_data,name='parse_data'),
 ]
