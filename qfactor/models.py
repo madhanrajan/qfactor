@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 # Create your models here.
 class Element(models.Model):
     name = models.CharField(max_length=100)
-    file = models.FileField()
+    file = models.FileField(upload_to="files/")
 
     def __str__(self):
         return self.name
