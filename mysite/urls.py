@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from qfactor.views import IndexView, Page2View, parse_data 
 from rest_framework import routers
-
+from django.views.decorators.csrf import csrf_exempt
 
 router = routers.DefaultRouter()
 
@@ -25,7 +25,7 @@ router = routers.DefaultRouter()
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', IndexView.as_view(),name='index'),
-    path('page2/', Page2View.as_view(), name='page2'),
+    path('page2/', csrf_exempt(Page2View.as_view()), name='page2'),
     path('router/', include(router.urls)),
-    path('parsedata',parse_data,name='parse_data'),
+    path('parsedata', parse_data,name='parse_data'),
 ]

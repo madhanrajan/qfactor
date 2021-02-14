@@ -106,10 +106,16 @@
             
             $.ajax({
               type: "POST",
-              url: "https://nameless-springs-99044.herokuapp.com/parsedata",
+              url: "{% url 'parse_data' %}",
+              headers: {
+                'X-HTTP-Method-Override': 'PATCH'
+              },
               data: JSON.stringify(data),
               success: (data) => {
+                console.log("data")
+                console.log(data)
                 $("#data_received").text(JSON.stringify(data));
+
               },
               dataType: "json",
               contentType: "application/json"
