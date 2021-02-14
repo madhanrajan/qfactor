@@ -14,14 +14,14 @@
     
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Qfactor</a>
+        <a class="navbar-brand" href="{% url 'index' %}">&nbsp;Home</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item active">
-              <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="{% url 'admin:index' %}">Add Element</a>
             </li>
 
           </ul>
@@ -31,10 +31,6 @@
     <div id="app1" class="container">
 
         
-        <label >To add an element, please click this link:</label> &nbsp;
-        <a href={% url 'admin:index' %} class="btn btn-primary">Add element</a>
-
-        <p></p>
 
         <form id="main">
             {{form.as_p}}
