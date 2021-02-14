@@ -106,7 +106,7 @@
             
             $.ajax({
               type: "POST",
-              url: "{% url 'parse_data' %}",
+              url: "https://nameless-springs-99044.herokuapp.com/parsedata",
               data: JSON.stringify(data),
               success: (data) => {
                 $("#data_received").text(JSON.stringify(data));

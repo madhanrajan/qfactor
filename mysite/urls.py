@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from qfactor.views import IndexView, Page2View, parse_data
+from qfactor.views import IndexView, Page2View, parse_data 
 from rest_framework import routers
 
 
