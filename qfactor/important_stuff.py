@@ -54,7 +54,7 @@ def get_permitivity(x,y,radius,distance):
     for i in range (len(x)):
         k=complex(real[i],imaginary[i])
         perm.append(k)
-        Ezr= (filling_fraction*d_perm_real) + ((1-filling_fraction)*real[i])
+        Ezr= (filling_fraction*real[i]) + ((1-filling_fraction)*d_perm_real)
         Ez_real.append(Ezr)
         oneplusp = (1+filling_fraction)
         oneminusp = (1-filling_fraction)
@@ -62,7 +62,7 @@ def get_permitivity(x,y,radius,distance):
         Ez_im.append(Ezim)
         
 
-        Exy= k*((oneplusp*d_perm) + oneminusp*k) / (oneplusp*k + oneminusp*d_perm)
+        Exy= d_perm*(oneplusp*k + oneminusp*d_perm) / (oneplusp*d_perm + oneminusp*k)
             
         Exy_real.append(Exy.real) 
         Exy_im.append(Exy.imag) 
