@@ -5,6 +5,7 @@ from django.views.generic import TemplateView
 from django.urls import reverse
 from django.shortcuts import redirect
 from .models import Element
+from .important_stuff import process_data
 
 # Create your views here.
 
@@ -45,7 +46,3 @@ def parse_data(request):
         print(request.data)
         return Response(process_data(request.data))
 
-
-
-def process_data(jsondata):
-    return {'Data received from backend':jsondata}
