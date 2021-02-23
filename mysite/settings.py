@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'qfactor',
+    'numpy'
 
     'rest_framework_jwt'
 ]
