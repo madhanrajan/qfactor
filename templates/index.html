@@ -129,8 +129,15 @@
         }
 
       })
+      var lineChart1 = null;
+      var lineChart2 = null;
 
       var plotGraph1 = (x,exy_real,exy_im) =>{
+
+        if (lineChart1 != null){
+          lineChart1.destroy();
+        }
+
         var chartOptions = {
             scales: {
               xAxes: [{
@@ -168,7 +175,8 @@
           }
 
           const ctx = $('#chart');
-          var lineChart = new Chart(ctx, {
+          
+          lineChart1 = new Chart(ctx, {
             type: 'line',
             options: chartOptions,
             data: data,
@@ -176,6 +184,11 @@
       };
 
       var plotGraph2 = (x,exy_real,exy_im) =>{
+
+        if (lineChart2 != null){
+          lineChart2.destroy();
+        }
+
         var chartOptions = {
           scales: {
               xAxes: [{
@@ -213,7 +226,7 @@
           }
 
           const ctx = $('#chart2');
-          var lineChart = new Chart(ctx, {
+          lineChart2 = new Chart(ctx, {
             type: 'line',
             options: chartOptions,
             data: data,
