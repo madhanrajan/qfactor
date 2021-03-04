@@ -37,7 +37,31 @@
         
 
         <form id="main">
-            {{form.as_p}}
+          <p><label for="id_initial_wavelength">Wavelength range; Initial Value (in nm):</label> <input type="number" name="initial_wavelength" value="400" required id="id_initial_wavelength"></p>
+          <p><label for="id_final_wavelength">Wavelength range; Final Value (in nm):</label> <input type="number" name="final_wavelength" value="900" required id="id_final_wavelength"></p>
+          <p><label for="id_initial_polarisation">Polarisation range; Initial Value(in degrees):</label> <input type="number" name="initial_polarisation" value="0" required id="id_initial_polarisation"></p>
+          <p><label for="id_final_polarisation">Polarisation range; Final Value(in degrees):</label> <input type="number" name="final_polarisation" value="40" required id="id_final_polarisation"></p>
+          <p><label for="id_nanorod_material">Nanorod material:</label> <select name="nanorod_material" id="id_nanorod_material">
+            {% for el in elements %}
+              <option value="{{el}}">{{el}}</option>
+            {% endfor %}
+          
+          </select></p>
+          <p><label for="id_dielectric_material_real">Dielectric material real permitivity:</label> <input type="number" name="dielectric_material_real" value="1" required id="id_dielectric_material_real"></p>
+          <p><label for="id_dielectric_material_complex">Dielectric material complex permitivity:</label> <input type="number" name="dielectric_material_complex" value="0" required id="id_dielectric_material_complex"></p>
+          <p><label for="id_polarisation">Specify the polarisation:</label> <select name="polarisation" id="id_polarisation">
+            <option value="TE">TE</option>
+          
+            <option value="TM">TM</option>
+          
+            <option value="BOTH">BOTH</option>
+          
+          </select></p>
+          <p><label for="id_radius">Radius (in nm):</label> <input type="number" name="radius" value="20" required id="id_radius"></p>
+          <p><label for="id_height">Height (in nm):</label> <input type="number" name="height" value="200" required id="id_height"></p>
+          <p><label for="id_distance">Distance (in nm):</label> <input type="number" name="distance" value="60" required id="id_distance"></p>
+          <p><label for="id_number_of_layers">Number of layers:</label> <input type="number" name="number_of_layers" required id="id_number_of_layers"></p>
+                  
         </form>
           <button v-on:click="retrieve" class="btn btn-primary">Next</button>
 
@@ -54,6 +78,7 @@
                 &nbsp;
                 
                 <select name="material" id="">
+                    <option value="Metamaterial">Metamaterial</option>
                   {% for el in elements %}
                     <option value="{{el}}">{{el}}</option>
                   {% endfor %}
@@ -93,7 +118,7 @@
         methods: {
           retrieve: function(event){
             j = $("#main").serializeArray();
-            value = j[8]["value"];
+            value = j[11]["value"];
 
             this.renderthis = true;
             this.countlist = value;

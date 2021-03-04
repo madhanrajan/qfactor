@@ -8,19 +8,19 @@ import math
 
 def process_data(jsondata):
 
-    params = process_json(jsondata)
+    params, layers = process_json(jsondata)
     radius = float(params["radius"])
     distance = float(params["distance"])
 
+
     #calculating the filling fraction
     filling_fraction = (math.pi*float((params["radius"]))**2)/(float(params["distance"])**2) 
-    print("filling_fraction")
     
-    (n, k, wl) = interpolate(Element.objects.all()[0],wl_init=params["initial_wavelength"],wl_fin=params["final_wavelength"])
+    (n, k, wl) = interpolate(Element.objects.get(name=params["nanorod_material"]),wl_init=params["initial_wavelength"],wl_fin=params["final_wavelength"])
 
     Exy_real, Exy_im, Ez_real, Ez_im = get_permitivity(n,k,radius, distance)
 
-
+    
 
 
         
@@ -31,7 +31,7 @@ def get_permitivity(x,y,radius,distance):
     filling_fraction = (math.pi*float(radius)**2)/(float(distance)**2) 
     print("filling_fraction")
     p=filling_fraction
-    d_perm_real = 1
+    d_perm_real = 1 
     d_perm_im = 0
     d_perm = complex(d_perm_real,d_perm_im)
     #calculating the refractive indicies
@@ -79,12 +79,28 @@ def process_json(data):
         i_list_2.append(i["value"])
     
     i_dict = dict(zip(i_list_1,i_list_2))
-    print(i_dict)
+
+    j_list_1 = []
+    j_list_2 = []
+
+    for j in data["layers"]:
+        if j["name"] == "material":
+            j_list_1.append(j["value"])
+        elif j["name"] == "thickness":
+            j_list_2.append(j["value"])
+    
+    j = [j_list_1,j_list_2]
+
+    j_list = np.array(j).T.tolist()
+
+    
 
         
         
 
-    return i_dict
+    return i_dict, j_list
+
+
 
 def xl_calculation(params):
     #int data
@@ -117,7 +133,9 @@ def interpolate(element,wl_init=400,wl_fin=900):
     y = []
     z = []
 
-    for wl in range(int(wl_init),int(wl_fin),10):
+    step = int((int(wl_fin) - int(wl_init)) / 50)
+
+    for wl in range(int(wl_init),int(wl_fin),step):
         n_ = np.interp(wl,wavelength,n)
         k_ = np.interp(wl,wavelength,k)
         z_ = wl
@@ -128,4 +146,4 @@ def interpolate(element,wl_init=400,wl_fin=900):
 
         # print (x_,y_,z_)
     return (x,y,z)
-    
+
