@@ -10,8 +10,8 @@ class Element(models.Model):
     def __str__(self):
         return self.name
 
-    def clean(self):
-        if Element.objects.filter(name=self.name).count() > 0:
-            raise ValidataionError("Duplicates exist. Please try a different name.")
+    # def clean(self):
+    #     if Element.objects.filter(name=self.name).count() > 0:
+    #         raise ValidataionError("Duplicates exist. Please try a different name.")
     
     

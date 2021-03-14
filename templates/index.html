@@ -39,8 +39,7 @@
         <form id="main">
           <p><label for="id_initial_wavelength">Wavelength range; Initial Value (in nm):</label> <input type="number" name="initial_wavelength" value="400" required id="id_initial_wavelength"></p>
           <p><label for="id_final_wavelength">Wavelength range; Final Value (in nm):</label> <input type="number" name="final_wavelength" value="900" required id="id_final_wavelength"></p>
-          <p><label for="id_initial_polarisation">Polarisation range; Initial Value(in degrees):</label> <input type="number" name="initial_polarisation" value="0" required id="id_initial_polarisation"></p>
-          <p><label for="id_final_polarisation">Polarisation range; Final Value(in degrees):</label> <input type="number" name="final_polarisation" value="40" required id="id_final_polarisation"></p>
+          <p><label for="id_incident_angle">Incident angle(in degrees):</label> <input type="number" name="incident_angle" value="10" required id="incident_angle"></p>
           <p><label for="id_nanorod_material">Nanorod material:</label> <select name="nanorod_material" id="id_nanorod_material">
             {% for el in elements %}
               <option value="{{el}}">{{el}}</option>
@@ -94,6 +93,8 @@
               <p id="data_received"></p>
               <canvas id="chart" ></canvas>
               <canvas id="chart2" ></canvas>
+              <canvas id="chart3" ></canvas>
+              <canvas id="chart4"></canvas>
 
           </div>
           <br>
@@ -118,7 +119,7 @@
         methods: {
           retrieve: function(event){
             j = $("#main").serializeArray();
-            value = j[11]["value"];
+            value = j[10]["value"];
 
             this.renderthis = true;
             this.countlist = value;
@@ -143,6 +144,8 @@
                 // $("#data_received").text(JSON.stringify(data));
                 plotGraph1(data["x_data"],data["exy_real"],data["exy_im"]);
                 plotGraph2(data["x_data"],data["ez_real"],data["ez_im"]);
+                plotGraph3(data["x_data"],data["t_real"],data["t_imag"]);
+                plotGraph4(data["x_data"],data["r_real"],data["r_imag"]);
 
               },
               dataType: "json",
@@ -156,6 +159,8 @@
       })
       var lineChart1 = null;
       var lineChart2 = null;
+      var lineChart3 = null;
+      var lineChart4 = null;
 
       var plotGraph1 = (x,exy_real,exy_im) =>{
 
@@ -258,7 +263,106 @@
           })
       };
 
-      
+      var plotGraph3 = (x,exy_real,exy_im) =>{
+
+        if (lineChart3 != null){
+          lineChart3.destroy();
+        }
+
+        var chartOptions = {
+          scales: {
+              xAxes: [{
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Wavelength'
+                }
+              }]
+            } ,
+            legend: {
+              display: true,
+              position: 'top',
+              labels: {
+                boxWidth: 80,
+                fontColor: 'black'
+              }
+            }
+          };
+
+          var data = {
+            labels: x,
+            datasets: [{
+              label: "t real",
+              data: exy_real,
+              fill: false,
+              backgroundColor: "#ff6384"
+            },
+            {
+              label: "t imaginary",
+              data: exy_im,
+              fill: false,
+              backgroundColor: "#ffce56"
+            },
+            ]
+          }
+
+          const ctx = $('#chart3');
+          lineChart3 = new Chart(ctx, {
+            type: 'line',
+            options: chartOptions,
+            data: data,
+          })
+        };
+
+        var plotGraph4 = (x,exy_real,exy_im) =>{
+
+          if (lineChart4 != null){
+            lineChart4.destroy();
+          }
+
+          var chartOptions = {
+            scales: {
+                xAxes: [{
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Wavelength'
+                  }
+                }]
+              } ,
+              legend: {
+                display: true,
+                position: 'top',
+                labels: {
+                  boxWidth: 80,
+                  fontColor: 'black'
+                }
+              }
+            };
+
+            var data = {
+              labels: x,
+              datasets: [{
+                label: "r real",
+                data: exy_real,
+                fill: false,
+                backgroundColor: "#ff6384"
+              },
+              {
+                label: "r imaginary",
+                data: exy_im,
+                fill: false,
+                backgroundColor: "#ffce56"
+              },
+              ]
+            }
+
+            const ctx = $('#chart4');
+            lineChart4 = new Chart(ctx, {
+              type: 'line',
+              options: chartOptions,
+              data: data,
+            })
+          };
+     
 
     </script>
 </body>

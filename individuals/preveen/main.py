@@ -40,10 +40,9 @@ for material, thickness in layers:
         wl[i]
         n[i] #real part of the refractive index
         k[i] #complex part of the refactive index
-        wv_val[0]=2*math.pi()/wl[i]
         refractive_index= complex(n[i],k[i])
         for i in range int(params["number_of_layers"]):
-            wv[i+1] = refractive_index * wv[i]           # wavevector of media
+            wv_val[i]=(2*math.pi()/wl[i])*complex(n**2-k**2),2*n*k)-(2*math.pi)()/wl[i])*np.sin(theta/np.pi*180)        # wavevector of media
             Zc = math.sqrt(mu[i]/eps[i])  #impedance of the particular media
             M11 = math.cos(wv[i+1]*L[i]) #matrix elements of layers
             M12 = complex(0, Zc * (math.sin(wv[i+1]*L[i]))

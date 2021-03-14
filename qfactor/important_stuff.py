@@ -1,6 +1,7 @@
 import numpy as np
 from .models import Element
 import math
+from .transfer_matrix_2 import magic
 
 # {"essentials":[{"name":"initial_wavelength","value":"400"},{"name":"final_wavelength","value":"900"},{"name":"initial_polarisation","value":"0"},{"name":"final_polarisation","value":"40"},{"name":"polarisation","value":"TE"},{"name":"radius","value":"20"},{"name":"height","value":"200"},{"name":"distance","value":"60"},{"name":"number_of_layers","value":"3"}],"layers":[{"name":"material","value":"gold"},{"name":"thickness","value":""},{"name":"material","value":"gold"},{"name":"thickness","value":""},{"name":"material","value":"gold"},{"name":"thickness","value":""}]}
 # Refer above to retrieve 
@@ -18,13 +19,16 @@ def process_data(jsondata):
     
     (n, k, wl) = interpolate(Element.objects.get(name=params["nanorod_material"]),wl_init=params["initial_wavelength"],wl_fin=params["final_wavelength"])
 
-    Exy_real, Exy_im, Ez_real, Ez_im = get_permitivity(n,k,radius, distance=distance,d_perm_real=float(params["dielectric_material_real"]),d_perm_im=float(params["dielectric_material_complex"]))
+    E = get_permitivity(n,k,radius, distance=distance,d_perm_real=float(params["dielectric_material_real"]),d_perm_im=float(params["dielectric_material_complex"]))
+
+    Exy_real, Exy_im, Ez_real, Ez_im = E
 
     
 
+    t_real, t_imag, r_real, r_imag = magic(E,n,k,wl,params,int(params["incident_angle"]),layers)
 
-        
-    return {'Data received from backend':  jsondata , 'x_data': wl, 'exy_real':Exy_real,'exy_im':Exy_im,'ez_real': Ez_real,'ez_im': Ez_im}
+
+    return {'Data received from backend':  jsondata , 'x_data': wl, 'exy_real':Exy_real,'exy_im':Exy_im,'ez_real': Ez_real,'ez_im': Ez_im,"t_real_list": t_real,"t_imag": t_imag,"r_real":r_real,"r_imag":r_imag}
 
 def get_permitivity(x,y,radius,distance,d_perm_real = 1,d_perm_im = 0):
 
