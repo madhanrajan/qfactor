@@ -23,12 +23,13 @@ def process_data(jsondata):
 
     Exy_real, Exy_im, Ez_real, Ez_im = E
 
-    
 
     t_real, t_imag, r_real, r_imag = magic(E,n,k,wl,params,int(params["incident_angle"]),layers)
 
+    print(t_real)
 
-    return {'Data received from backend':  jsondata , 'x_data': wl, 'exy_real':Exy_real,'exy_im':Exy_im,'ez_real': Ez_real,'ez_im': Ez_im,"t_real_list": t_real,"t_imag": t_imag,"r_real":r_real,"r_imag":r_imag}
+
+    return {'Data received from backend':  jsondata , 'x_data': wl, 'exy_real':Exy_real,'exy_im':Exy_im,'ez_real': Ez_real,'ez_im': Ez_im,"t_real": t_real,"t_imag": t_imag,"r_real":r_real,"r_imag":r_imag}
 
 def get_permitivity(x,y,radius,distance,d_perm_real = 1,d_perm_im = 0):
 
