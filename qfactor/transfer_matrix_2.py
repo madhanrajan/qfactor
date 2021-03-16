@@ -68,11 +68,13 @@ def magic(E,n,k,wl,params,theta,layers):
 
     for w in range(len(wl)):
         wavelen = wl[w]
-        eps_super = complex(epsil_real[-1],epsil_imag[-1])
-        eps_sub = complex(epsil_real[0],epsil_imag[0])
+        eps_super = 1
+        eps_sub = 1
         r_list.append(get_reflection(big_M[w],theta,wavelen, eps_super, eps_sub))
         t_list.append(get_transmission(big_M[w], theta, wavelen,eps_super,eps_sub))
     
+    t_mag = [ np.sqrt(np.conjugate(x)*x) for x in t_list ]
+    r_mag = [ np.sqrt(np.conjugate(x)*x) for x in r_list ]
 
     t_real = [x.real for x in t_list]
     t_imag = [x.imag for x in t_list]
@@ -80,7 +82,7 @@ def magic(E,n,k,wl,params,theta,layers):
     r_real = [x.real for x in r_list]
     r_imag = [x.imag for x in r_list]
 
+    
 
     return t_real, t_imag, r_real, r_imag
-
 
