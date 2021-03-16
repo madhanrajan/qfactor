@@ -20,8 +20,8 @@ def magic(E,n,k,wl,params,theta,layers):
     for i in range(len(layers)):
         material, thickness = layers[i]
         if material== "metamaterial":
-            epsil_real = Exy_real
-            epsil_imag = Exy_im
+            epsil_real = np.array(Exy_real)# + np.array(Ez_real)
+            epsil_imag = np.array(Exy_im)# + np.array(Ez_im)
             
             
         else:

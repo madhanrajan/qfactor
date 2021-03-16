@@ -57,7 +57,6 @@
           
           </select></p>
           <p><label for="id_radius">Radius (in nm):</label> <input type="number" name="radius" value="20" required id="id_radius"></p>
-          <p><label for="id_height">Height (in nm):</label> <input type="number" name="height" value="200" required id="id_height"></p>
           <p><label for="id_distance">Distance (in nm):</label> <input type="number" name="distance" value="60" required id="id_distance"></p>
           <p><label for="id_number_of_layers">Number of layers:</label> <input type="number" name="number_of_layers" required id="id_number_of_layers"></p>
                   
@@ -119,7 +118,7 @@
         methods: {
           retrieve: function(event){
             j = $("#main").serializeArray();
-            value = j[10]["value"];
+            value = j[9]["value"];
 
             this.renderthis = true;
             this.countlist = value;
