@@ -21,7 +21,7 @@ def magic(E, wl, interpolate, params, theta, layers):
 
     for i in range(len(layers)):
         material, thickness = layers[i]
-        print(material)
+
         if material == "Metamaterial":
 
             epsil_real = np.array(eps_p_list_real)
@@ -83,10 +83,10 @@ def magic(E, wl, interpolate, params, theta, layers):
     r_mag = [np.conjugate(x)*x for x in r_list]
 
     t_real = [x.real for x in t_mag]
-    t_imag = [x.imag for x in t_mag]
+    # t_imag = [x.imag for x in t_mag]
 
     r_real = [x.real for x in r_mag]
-    r_imag = [x.imag for x in r_mag]
+    # r_imag = [x.imag for x in r_mag]
 
     # r_real = 1 - np.array(r_real)
     # r_imag = 1 - np.array(r_imag)
