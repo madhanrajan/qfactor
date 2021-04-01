@@ -115,6 +115,7 @@ def interpolate(element, wl_init=400, wl_fin=900):
             row = line.split()
             row = [float(x) for x in row]
             data.append(row)
+
             # print(row)
     # print (data) # will show arrays of [[wl,n,k],every row ]
 
@@ -133,7 +134,7 @@ def interpolate(element, wl_init=400, wl_fin=900):
 
     step = int((int(wl_fin) - int(wl_init)) / 500)
 
-    for wl in range(int(wl_init), int(wl_fin), step):
+    for wl in range(int(wl_init), int(wl_fin), 1):
         n_ = np.interp(wl, wavelength, n)
         k_ = np.interp(wl, wavelength, k)
         z_ = wl
