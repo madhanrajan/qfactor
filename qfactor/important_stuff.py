@@ -28,7 +28,9 @@ def process_data(jsondata):
     t_real, t_imag, r_real, r_imag = magic(
         E, wl, interpolate, params, int(params["incident_angle"]), layers)
 
-    return {'x_data': wl, 'exy_real': Exy_real, 'exy_im': Exy_im, 'ez_real': Ez_real, 'ez_im': Ez_im, "t_real": t_real, "t_imag": t_imag, "r_real": r_real, "r_imag": r_imag}
+    a_real = 1 - np.array(t_real) - np.array(r_real)
+
+    return {'x_data': wl, 'exy_real': Exy_real, 'exy_im': Exy_im, 'ez_real': Ez_real, 'ez_im': Ez_im, "t_real": t_real, "t_imag": t_imag, "r_real": r_real, "r_imag": r_imag, 'a_real': a_real}
 
 
 def get_permitivity(x, y, radius, distance, d_perm_real=1, d_perm_im=0):
